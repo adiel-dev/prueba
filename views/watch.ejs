@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title><%= info.videoDetails.title %></title>
+  <meta name="description" content="<%= info.videoDetails.description || "" %>">
+  <meta property="og:title" content="<%= info.videoDetails.title %> - YouTube">
+  <meta property="og:type" content="video">
+  <meta property="og:video" content="/stream/<%= id %>">
+  <meta property="og:video:type" content="video/mp4">
+  <meta property="og:video" content="/stream/<%= id %>">
+  <meta property="og:video:type" content="text/html">
+  <meta property="twitter:player" content="/stream/<%= id %>">
+  <meta name="twitter:image" content="<%= info.videoDetails.thumbnails.pop().url.slice(19); %>">
+  <meta property="og:description" content="<%= info.videoDetails.description || "" %>">
+  <meta property="og:site_name" content="YouTube | Watch Anonymously!">
+  <meta property="og:image" content="<%= info.videoDetails.thumbnails.pop().url.slice(19); %>">
+  <meta name="theme-color" content="#ff8181">
+  <link rel="shortcut icon" href="/logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="author" content="YouTube | Watch Anonymously!">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/plyr.css">
+  <script src="/js/plyr.polyfilled.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-white bg-white" aria-label="We hope you enjoy it!">
+    <div class="container-fluid">
+      <a href="/" class="navbar-brand">
+        <img width="110" src="/logo.png">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/> </svg>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarsExample01">
+        <ul class="navbar-nav me-auto mb-2">
+          <li class="nav-item">
+            </ul>
+          </li>
+        </ul>
+        <form action="/s">
+          <input name="q" class="form-control" type="text" placeholder="Search" aria-label="Search">
+        </form>
+      </div>
+    </div>
+  </nav>
+  <div class="card">
+    <video id="player" playsinline poster="<%= info.videoDetails.thumbnails.pop().url.slice(19); %>" controls src="/s/<%= id %>" width="100%"></video>
+ <!-- Not Fixed -->
+ <div class="info-video-watch">
+   <div class="title-video-description">
+     <div class="title-visits">
+       <span class="title"><%= info.videoDetails.title%></span>
+       <span class="visits"><%=info.videoDetails.viewCount%> visitas • <%= info.videoDetails.uploadDate %></span>
+     <br>
+     <small><font color="blue"><%- (info.videoDetails.description || "").replace(/\n/g, "<br>") %></font></small>
+     <div class="description"></div>
+   </div>
+      <!-- Channel Information -->
+      <div class="chnInf">
+        <h4
+          ><img
+            src="/yt3/<%= info.videoDetails.author.thumbnails.pop().url.slice(22) %>"
+            style="border-radius: 50%; width: 15px; height: 15px"
+          />
+          <a href="/c/<%= info.videoDetails.author.id %>"
+            ><%= info.videoDetails.author.name %></a
+          ></h4
+        >
+      </div>
+      <!-- Video Information -->
+      <div id="vidInfo">
+        <h2><%= info.videoDetails.title %></h2>
+        <span
+          ><%- (info.videoDetails.description || "").replace(/\n/g, "<br />")
+          %></span
+        >
+      </div>
+    </div>
+    <!-- Related Video section -->
+    <div id="relatedVideos" class="absolute right">
+      <% info.related_videos.forEach(video => { %>
+      <div class="rVideo">
+        <a href="/w/<%= video.id %>"
+          ><img src="<%= video.thumbnails.pop().url.slice(19); %>"
+        /></a>
+        <div class="rVideoInfo">
+          <h4><a href="/w/<%= video.id %>"><%= video.title %></a></h4>
+          <div class="chnInf">
+            <span
+              ><img
+                src="/yt3/<%= video.author.thumbnails.pop().url.slice(22) %>"
+                style="border-radius: 50%; width: 17px; height: 17px"
+              />
+              <a href="/c/<%= video.author.id %>"
+                ><%= video.author.name %></a
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+      <% }); %>
+    </div>
+<script src="/js/main.js"></script>
+  <script>
+   document.addEventListener('DOMContentLoaded', () => {
+     const player = new Plyr('video', {
+       controls: [
+         'play-large', 'play', 'progress', 'current-time', 'duration',
+         'mute', 'volume', 'settings', //'pip',
+         'airplay', 'download', 'fullscreen'
+       ],
+       settings: ['captions', 'quality', 'speed'],
+       title: '<%= info.videoDetails.title %>,',
+       iconUrl: '/plyr.svg',
+       autopause: false,
+       debug: true
+     });
+
+     player.on('error', err => {
+     	console.error(err);
+     	location.reload();
+     });
+   });
+  </script>
+  <style>
+	* {
+		--plyr-color-main: #FF0000;
+	}
+
+	a {
+		color: #FF0000;
+	}
+  </style>
+<style>
+body{
+   width: 100%;
+   background: #FFFFFF;
+   font-family: "Verdana";
+   margin:0;
+   padding: 0;
+   --color-holder: #ced4da;
+   --primary-color: #1880c9;
+   --primary-alpha-Dot75: rgba(24, 128, 201, 0.75);
+   --primary-alpha-Dot5: rgba(24, 128, 201, 0.5);
+   --primary-alpha-Dot25: rgba(24, 128, 201, 0.25);
+   --primary-alpha-Dot15: rgba(24, 128, 201, 0.15);
+   --primary-alpha-Dot1: rgba(24, 128, 201, 0.1);
+   --primary-alpha-Dot05: rgba(24, 128, 201, 0.05);
+   --primary-dark: #106daf;
+ 
+   --secondary-color: #a5b5c5;
+   --light-color: #e5eaef;
+ 
+   --white-color: #fff;
+ 
+   --dark-color: #2a3f5a;
+   --dark-alpha-Dot5: rgba(42, 63, 90, 0.5);
+   --dark-alpha-Dot95: rgba(42, 63, 90, 0.95);
+ 
+   --success-color: #68bb69;
+   --success-alpha-Dot5: rgba(104, 187, 105, 0.5);
+   --danger-color: #f65f6e;
+   --danger-alpha-Dot5: rgba(246, 95, 110, 0.5);
+   --warning-color: #F8BC34;
+   --warning-alpha-Dot5: rgba(254, 201, 90, 0.5);
+}
+
+*{user-select: none;box-sizing: border-box;}
+.headers{
+  position: fixed;
+  top:0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  height: 55px;
+  background: var(--white-color);
+  margin-bottom: 10px;
+  overflow: hidden;
+  z-index: 100;
+  transition: all ease-out 0.1s;
+}
+.headers.hidden{
+  background:red;
+  display: none;
+  width: 0;
+  height: 0;
+}
+.headers .var_1{
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin:0 5px;
+ }
+ 
+ .info-video-watch .title-video-description .title-visits{
+   width: 100%;
+   display: flex;
+   justify-content:center;
+   flex-direction: column;
+   padding:0 10px;
+ }
+ .info-video-watch .title-video-description .title-visits .title{
+   font-size: 17px;
+ }
+ 
+ .info-video-watch .title-video-description .title-visits .visits{
+   font-size: 13px;
+ }
+ .info-video-watch .title-video-description .description{
+   width:80px;
+   height: auto;
+ }
+ .info-video-watch .channel-author{
+   width: 100%;
+   height: 60px;
+   box-sizing: border-box;
+   display: flex;
+   align-items: center;
+   justify-content:space-between;
+   border:1.5px solid var(--light-color);
+ }
+ .channel-author .var_1{
+   display: flex;
+   width: 200px;
+   margin:0 5px;
+ }
+ .channel-author .var_1 .name-author{
+   display: flex;
+   flex-direction: column;
+ }
+ .channel-author .var_1 .avatar-channel{
+   width: 35px;
+   height: 35px;
+ }
+ .channel-author .var_1 .name-author .name{
+   font-size:14px;
+ }
+ .channel-author .var_1 .name-author .sub{
+   font-size: 11px;
+ }
+ .channel-author .var_3{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   text-transform: uppercase;
+   margin: 0 15px;
+   color: var(--danger-color);
+   font-weight: 400;
+ }
+.related-video-query{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  background: var(--white-color);
+}
+.related-video-query .video-related{
+  display:flex;
+  width: 100%;
+  height: 200px;
+}
+.related-video-query .video-related img{
+  width: 100%;
+  height: auto;
+}
+ .related-video-query .video-related a{
+  width:100%;
+  height:auto;
+ }
+@supports(object-fit: cover){
+ .related-video-query .video-related img{
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  } 
+  .avatar-channel{
+   height: 100%;
+   object-fit: cover;
+   object-position: center center;
+  }
+ }
+
+.video-content{
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-items: space-evenly;
+  background: var(--white-color);
+}
+.avatar-channel{
+  width: 40px;
+  height: 40px;
+  border-radius:100%;
+  margin: 0 10px;
+  overflow:hidden;
+}
+.avatar-channel img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+ .video-info{
+ 
+ }
+ 
+.title-video{
+  font-size: 14px;
+  margin-bottom: 5px;
+  padding:5px 0;
+}
+.channel-visits-date{
+  font-size: 11px;
+}
+</style>
+</body>
+
+</html>
