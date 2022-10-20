@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title><%= channel.author.name %>'s Channel</title>
+  <meta name="description" content="<%= channel.description || channel.descriptionShort %>">
+  <meta property="og:title" content="<%= channel.author.name %>'s Channel">
+  <meta property="og:description" content="<%= channel.description || channel.descriptionShort || "" %>">
+  <meta property="og:site_name" content="ytmous | Watch Anonymously!">
+  <meta property="og:image" content="<%= channel.author.bestAvatar.url.slice(21) %>">
+  <meta name="theme-color" content="#ff8181">
+  <link rel="shortcut icon" href="<%= channel.author.bestAvatar.url.slice(21) %>">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="author" content="ytmous | Watch Anonymously!">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/font.css">
+  <script src="/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+ <nav class="navbar navbar-white bg-white" aria-label="We hope you enjoy it!">
+    <div class="container-fluid">
+      <a href="/" class="navbar-brand">
+        <img width="110" src="/logo.png">
+      </a>
+      <a class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/> </svg>
+      </a>
+      <div class="collapse navbar-collapse" id="navbarsExample01">
+        <ul class="navbar-nav me-auto mb-2">
+          <li class="nav-item">
+            </ul>
+          </li>
+        </ul>
+        <form action="/s">
+          <input name="q" class="form-control" type="text" placeholder="Search" aria-label="Search">
+        </form>
+      </div>
+    </div>
+  </nav>
+<br>
+ <!-- Channel Information -->
+      <div class="channel-author">
+     <div class="var_1">
+       <div class="avatar-channel">
+       <div class="avatar">
+       <center><img src="/yt3/<%= info.videoDetails.author.thumbnails.pop().url.slice(22) %>"
+          /></center>
+       </div>
+       </div>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% channel.items.forEach(video => { %>
+    <div class="col">
+      <div class="card h-100">
+        <div class="card-header"><%= video.author.name %></div>
+        <a href="/w/<%= video.id %>"><img src="<%= video.bestThumbnail.url.slice(19) %>" class="card-img-top" alt="<%= video.title %>"></a>
+        <div class="card-body">
+          <h5 class="card-title"><%= video.title %></h5>
+          <p class="card-subtitle"><%= video.duration %></p>
+        </div>
+      </div>
+    </div>
+    <% }); %>
+  </div>
+<style>
+}
+/* Toard.css - A simple, yet easy to use css. */
+/* https://github.com/Yonle/Toard.css */
+
+h1, h2, h3, h4 {
+  margin: 0;
+}
+
+pre {
+  margin-top: 0;
+  white-space: -moz-pre-wrap; /* Mozilla, supported since 1999 */
+  white-space: -pre-wrap; /* Opera */
+  white-space: -o-pre-wrap; /* Opera */
+  white-space: pre-wrap; /* CSS3 - Text module (Candidate Recommendation) http://www.w3.org/TR/css3-text/#white-space */
+  word-wrap: break-word; /* IE 5.5+ */
+}
+
+.border {
+  border: solid 1px;
+  border-radius: 2px;
+  background: white;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.grid {
+  display: grid;
+  width: auto;
+}
+
+.flex {
+  display: flex;
+}
+
+.bottom {
+  bottom: 5px;
+}
+
+.top {
+  top: 5px;
+}
+
+.left {
+  float: left;
+  left: 5px;
+}
+
+.right {
+  float: right;
+  right: 5px;
+}
+
+.clear_left {
+  clear: left;
+}
+
+.clear_right {
+  clear: right;
+}
+
+.popup {
+  visibility: hidden;
+  z-index: 4;
+}
+
+.popup:target {
+  visibility: visible;
+}
+</style>
+<style>
+}
+@font-face {
+  font-family: ubuntu-regular;
+  src: url(/Ubuntu-R.ttf);
+}
+
+body {
+  font-family: helvetica;
+}
+
+video {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  width: 100%;
+  max-height: 60vh;
+}
+
+/* img only shows up for thumbnail, and they’re completely small. */
+img {
+  max-width: 150px;
+}
+
+a {
+  color: black;
+}
+
+#sbox:hover, #sbtn:hover + #sbox {
+  visibility: visible;
+}
+
+#player {
+  width: 60%;
+  z-index: -1;
+}
+
+#relatedVideos {
+  z-index: -1;
+  position: static;
+}
+
+.rVideo {
+  display: flex;
+  padding: 3px;
+}
+
+.rVideoInfo {
+  display: block;
+  padding: 10px;
+}
+
+.rVideoInfo img {
+  float: left;
+}
+
+/* Channel Info */
+.chInf {
+  border: solid 1px;
+  border-radius: 2px;
+  max-width: 72%;
+  display: flex;
+}
+
+/* Mobile View */
+@media only screen and (max-width: 960px) {
+  body {
+    display: block;
+    margin: 0;
+  }
+
+  #player, #vidInfo {
+    position: static;
+    background: white;
+    margin: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #relatedVideos {
+    float: left;
+    position: relative;
+    padding: 2px;
+  }
+  
+  .rVideo, #chnInf, #vidInfo {
+    position: relative;
+    padding: 2.5px;
+  }
+  
+  .rVideoInfo {
+    width: 170px;
+  }
+  
+  .img {
+    max-width: 200px;
+    height: auto;
+  }
+  
+  video {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+</style>
+<style>
+}
+ .video-info{
+ 
+ }
+ 
+.title-video{
+  font-size: 13px;
+  margin-bottom: 5px;
+  padding:5px 0;
+}
+.channel-visits-date{
+  font-size: 12px;
+}
+</style>
+</body>
+
+</html>
