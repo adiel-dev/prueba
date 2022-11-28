@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="user-scalable=no,initial-scale=1,maximum-scale=1">
+  <link rel="stylesheet" href="/css/main.css" type="text/css" media="all" />
+  <title>Youtube Lite</title>
+</head>
+<body>
+<!-- Headers -->
+<div class="headers fixed">
+  <div class="var_1">
+    <div class="icon-yt"></div>
+  </div>
+  <div class="var_2"></div>
+  <div class="var_3">
+    <div class="icon-search"></div>
+  </div>
+</div>
+
+<div class="main-content">
+ <!--/video streaming /-->
+ <div class="watch-video fixed">
+   <div class="video-streaming"> 
+     <video id="player" playsinline poster="<%= info.videoDetails.thumbnails.pop().url.slice(19); %>" controls src="/s/<%= id %>"></video>
+   </div>
+ </div>
+ <!-- Not Fixed -->
+ <div class="info-video-watch">
+   <div class="title-video-description">
+     <div class="title-visits">
+       <span class="title"><%= info.videoDetails.title%></span>
+       <span class="visits"><%=info.videoDetails.viewCount%> visitas • <%= info.videoDetails.uploadDate %></span>
+     </div>
+     <div class="description"></div>
+   </div>
+   <div class="channel-author">
+     <div class="var_1">
+       <div class="avatar-channel">     
+         <img src="/ytc/<%=info.videoDetails.author.thumbnails[2].url.slice(22)%>" alt="">
+       </div>
+       <div class="name-author">
+         <span class="name"><%=info.videoDetails.author.name%></span>
+         <span class="sub"><%=info.videoDetails.author.subscriber_count%> Suscriptores</span>
+       </div>
+     </div>
+     <div class="var_2"></div>
+     <div class="var_3">Suscribirse</div>
+   </div>
+ </div>
+   
+ <!---/Related video Query/-->
+<% info.related_videos.forEach(video => { %>
+ <div class="related-video-query">
+   <div class="video-related">
+    <a href="/w/<%= video.id %>"><img src="<%= video.thumbnails.pop().url.slice(19)%>" alt="<%=video.title%>"></a>
+   </div>
+   
+   <div class="video-content">
+     <div class="avatar-channel">
+       <img src="/ytc/<%=video.author.thumbnails[0].url.slice(22)%>" alt="">
+     </div>
+     <div class="video-info">
+     <div class="title-video"><%=video.title%></div>
+     <div class="channel-visits-date">
+       <%=video.author.name%> • <%=video.short_view_count_text%> visits • <%=video.published%>
+     </div>
+     </div>
+   </div>
+ </div>
+<% })%>
+</div>
+<script src="/js/main.js"></script>
+<style>
+body{
+   width: 100%;
+   background: #F4F4F4;
+   font-family: "Verdana";
+   margin:0;
+   padding: 0;
+   --color-holder: #ced4da;
+   --primary-color: #1880c9;
+   --primary-alpha-Dot75: rgba(24, 128, 201, 0.75);
+   --primary-alpha-Dot5: rgba(24, 128, 201, 0.5);
+   --primary-alpha-Dot25: rgba(24, 128, 201, 0.25);
+   --primary-alpha-Dot15: rgba(24, 128, 201, 0.15);
+   --primary-alpha-Dot1: rgba(24, 128, 201, 0.1);
+   --primary-alpha-Dot05: rgba(24, 128, 201, 0.05);
+   --primary-dark: #106daf;
+ 
+   --secondary-color: #a5b5c5;
+   --light-color: #e5eaef;
+ 
+   --white-color: #fff;
+ 
+   --dark-color: #2a3f5a;
+   --dark-alpha-Dot5: rgba(42, 63, 90, 0.5);
+   --dark-alpha-Dot95: rgba(42, 63, 90, 0.95);
+ 
+   --success-color: #68bb69;
+   --success-alpha-Dot5: rgba(104, 187, 105, 0.5);
+   --danger-color: #f65f6e;
+   --danger-alpha-Dot5: rgba(246, 95, 110, 0.5);
+   --warning-color: #F8BC34;
+   --warning-alpha-Dot5: rgba(254, 201, 90, 0.5);
+}
+
+*{user-select: none;box-sizing: border-box;}
+.headers{
+  position: fixed;
+  top:0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  height: 55px;
+  background: var(--white-color);
+  margin-bottom: 10px;
+  overflow: hidden;
+  z-index: 100;
+  transition: all ease-out 0.1s;
+}
+.headers.hidden{
+  background:red;
+  display: none;
+  width: 0;
+  height: 0;
+}
+.headers .var_1{
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin:0 5px;
+}
+.icon-yt{
+  width: 100px;
+  height: 70px;
+  background: url("../youtube-logo.svg");
+  background-size: cover;
+  background-position: center;
+  object-fit: cover;
+}
+.headers .var_3{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: auto;
+}
+
+.icon-search{
+  width: 22px;
+  height: 22px;
+  background: url("../search-icon.svg");
+  background-size: cover;
+  background-position: center;
+  object-fit: cover;
+}
+
+.main-content{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+}
+
+.watch-video{
+  position: fixed;
+  top:0;
+  left: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  background: var(--dark-alpha-Dot5);
+  margin-top: 55px;
+  z-index: 100;
+  transition: all ease-out 0.1s;
+}
+ .watch-video .video-streaming{
+   box-sizing:border-box ;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+   height: auto;
+   padding: 0;
+   margin: 0;
+   background: var(--white-color);
+ }
+ .watch-video .video-streaming video{
+   width: 100%;
+   height:232px;
+   margin:0;
+   padding: 0;
+ }
+ 
+ .info-video-watch{
+   margin-top: 287px;
+   width: 100%;
+   height: auto;
+   background: var(--white-color);
+   margin-bottom: 5px;
+ }
+ .info-video-watch .title-video-description{
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   width: 100%;
+   height: 50px;
+   margin:8px 0;
+   padding:15 px 0;
+   background: var(--white-color);
+   
+ }
+ 
+ .info-video-watch .title-video-description .title-visits{
+   width: 100%;
+   display: flex;
+   justify-content:center;
+   flex-direction: column;
+   padding:0 10px;
+ }
+ .info-video-watch .title-video-description .title-visits .title{
+   font-size: 17px;
+ }
+ 
+ .info-video-watch .title-video-description .title-visits .visits{
+   font-size: 13px;
+ }
+ .info-video-watch .title-video-description .description{
+   width:80px;
+   height: auto;
+ }
+ .info-video-watch .channel-author{
+   width: 100%;
+   height: 60px;
+   box-sizing: border-box;
+   display: flex;
+   align-items: center;
+   justify-content:space-between;
+   border:1.5px solid var(--light-color);
+ }
+ .channel-author .var_1{
+   display: flex;
+   width: 200px;
+   margin:0 5px;
+ }
+ .channel-author .var_1 .name-author{
+   display: flex;
+   flex-direction: column;
+ }
+ .channel-author .var_1 .avatar-channel{
+   width: 35px;
+   height: 35px;
+ }
+ .channel-author .var_1 .name-author .name{
+   font-size:17px;
+ }
+ .channel-author .var_1 .name-author .sub{
+   font-size: 13px;
+ }
+ .channel-author .var_3{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   text-transform: uppercase;
+   margin: 0 15px;
+   color: var(--danger-color);
+   font-weight: 400;
+ }
+.related-video-query{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  background: var(--white-color);
+}
+.related-video-query .video-related{
+  display:flex;
+  width: 100%;
+  height: 250px;
+}
+.related-video-query .video-related img{
+  width: 100%;
+  height: auto;
+}
+
+ .related-video-query .video-related a{
+  width:100%;
+  height:auto;
+ }
+@supports(object-fit: cover){
+ .related-video-query .video-related img{
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  } 
+  .avatar-channel{
+   height: 100%;
+   object-fit: cover;
+   object-position: center center;
+  }
+ }
+
+.video-content{
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-items: space-evenly;
+  background: var(--white-color);
+}
+.avatar-channel{
+  width: 40px;
+  height: 40px;
+  border-radius:100%;
+  margin: 0 10px;
+  overflow:hidden;
+}
+.avatar-channel img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+ .video-info{
+ 
+ }
+ 
+.title-video{
+  font-size: 16px;
+  margin-bottom: 5px;
+  padding:5px 0;
+}
+.channel-visits-date{
+  font-size: 13px;
+}
+</style>
+</body>
+</html>
