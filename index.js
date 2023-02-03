@@ -2,6 +2,7 @@ const m3u8stream = require("m3u8stream");
 const ytdl = require("ytdl-core");
 const ytsr = require("ytsr");
 const ytpl = require("ytpl");
+require("@freetube/yt-comment-scraper");
 const miniget = require("miniget");
 const express = require("express");
 const ejs = require("ejs");
@@ -23,6 +24,72 @@ const user_agent =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36";
 
 //     END OF CONFIGURATION    //
+
+let infos = {
+  timeouts: {},
+  HLSOrigin: {},
+};
+
+function getSize(url, opt) {
+  return new Promise((resolv, reject) => {
+    let req = miniget(url, opt)
+      .on("response", (res) => {
+        req.destroy();
+        resolv(res.headers["content-length"]);
+      })
+      .on("error", reject);
+  });
+}
+
+function getCaptions(id, sub) {
+  try {
+    let captions =
+      infos[id].player_response.captions.playerCaptionsTracklistRenderer
+        .captionTracks;
+    if (!captions || !captions.length) return [];
+    if (!sub) return captions;
+
+    return captions.filter((c) => c.vssId === sub);
+  } catch {
+    return [];
+  }
+}
+
+async function getComments(opt) {
+  try {
+    return await ytcs.getComments(opt);
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
+async function getCommentReplies(opt) {
+  try {
+    return await ytcs.getCommentReplies(opt);
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
+async function putInfoToCache(info) {
+  if (process.env.NO_CACHE) return;
+
+  let id = info.videoDetails.videoId;
+  let timeout = info.player_response.streamingData.expiresInSeconds;
+
+  infos[id] = JSON.parse(JSON.stringify(info));
+
+  if (infos.timeouts[id]) clearTimeout(infos.timeouts[id]);
+  infos.timeouts[id] = setTimeout(() => {
+    delete infos[id];
+  }, parseInt(timeout));
+
+  infos[id].comments = await getComments({ videoId: id });
+
+  return;
+}
 
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
