@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/Toard.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <title><%= comments.total || 0 %> comments for <%= id %></title>
+  </head>
+  <body>
+<style>
+.avattar-cchannel{width: 100px;height: 100px;}.channel-author .var_1 .name-author .nam{font-size:11px;}.channel-author .var_1 .name-author .sub{font-size: 11px;}.channel-author .var_3{display: flex;justify-content: center;align-items: center;text-transform: uppercase;margin: 0 12px;color: var(--danger-color);font-weight: 400;}.related-video-query{display: flex;justify-content: center;align-items: center;flex-direction: column;width: 100%;background: var(--white-color);}.related-video-query .video-related{display:flex;width: 100%;height: 200px;}.related-video-query .video-related img{width: 100%;height: auto;}.related-video-query .video-related a{width:100%;height:auto;}@supports(object-fit: cover){.related-video-query .video-related img{height: 100%;object-fit: cover;object-position: center center;}.video-content{width: 100%;height: auto;display: flex;align-items: center;justify-items: space-evenly;background: var(--white-color);}.video-info{}.title-videoo{font-size: 14px;margin-bottom: 5px;padding:5px 0;}.title-video{font-size: 12px;margin-bottom: 5px;padding:5px 0;}.channel-visits-date{font-size:10px;color: #808080;}.video-query .video-related .media-item-thumbnail .content-miniature .video-thumbnails-overlay .overlay-time-status{margin: 5px;padding: 1px 4px;border-radius: 2px;background-color: white;}.avattar-cchannel{width: 60px;height: 60px;border-radius:100%;margin: 0 10px;min-width: 35px;min-height: 35px;overflow: hidden;}.avattar-cchannel .avattar{width:100%;height:auto;}.avattar-cchannel .avattar>img{width: 100%;height: auto;filter: brightness(90%);object-fit:cover;}.content-videos-server .channel-author-search:active{background: #383941;}.content-videos-server .channel-author-search .avattar{width: 80px;height: 80px;min-height: 80px;min-width: 80px;border-radius:100%;overflow: hidden;margin: 0 10px;}.content-videos-server .channel-author-search .avattar>img{width: 100%;height: 100%;object-fit:cover;}
+</style>
+
+    <div>
+      <% comments.comments.forEach(comment => { %>
+      <div style="display: flex;">
+        <img lazy src="<%= comment.authorThumb[0].url %>"/>
+        <div class="channel-visits-date">
+          <%= comment.author %> • <%= comment.time %><%= (comment.isVerified || comment.isOfficialArtist) ? " | Verified user" : "" %><%= comments.isMember ? " | Channel Member" : "" %><%= comment.isOwner ? " | Owner" : "" %><%= comment.isPinned ? " | Pinned" : "" %>
+          <pre><%- comment.text %></pre>
+          <small><%= comment.likes %> likes <%= comment.isHearted ? "| Hearted" : "" %></small><br>
+          <% if (comment.replyToken) { %>
+          <small><a href="/cm/<%= id %>?replyToken=<%= comment.replyToken %>">View <%= comment.numReplies %> replies</a></small>
+          <% } %>
+        </div>
+      </div>
+      <% }); %>
+    </div>
+
+    <% if (prev) { %>
+    <a class="fixed border bottom left" href="/cm/<%= id %>?continuation=<%= prev %>&replyToken=<%= replyToken || null %>"
+      >Previous Page</a
+    >
+    <% } %>
+
+    <% if (comments.continuation) { %>
+    <a class="fixed border bottom right" href="/cm/<%= id %>?continuation=<%= comments.continuation %>&pref=<%= prev || null %>&replyToken=<%= replyToken || null %>"
+      >Next Page</a
+    >
+    <% } %>
+    <style>
+      body {
+        display: block;
+      }
+
+      img {
+        max-width: 50px;
+        width: 50px;
+        height: 50px;
+        padding: 10px;
+      }
+
+      .rVideoInfo {
+        width: 100%;
+        max-width: 100%;
+      }
+    </style>
+  </body>
+</html>
