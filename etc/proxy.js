@@ -86,7 +86,7 @@ module.exports = (app) => {
             if (head) res.setHeader(hed, head);
           });
 
-          let body = await request.text();
+
 
           // Get the URLs
           let urls = body.match(urlreg);
