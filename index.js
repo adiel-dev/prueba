@@ -55,7 +55,7 @@ app.get("/c/:id", async (req, res) => {
 });
 
 app.get("/cm/:id", async (req, res) => {
-})
+});
 
 proxyHandler(app);
 
