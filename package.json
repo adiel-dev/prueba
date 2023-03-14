@@ -12,7 +12,9 @@
     "ytdl-core": "4.11.2",
     "ytpl": "^2.3.0",
     "youtubei.js": "^3.3.0"
+    "ytsr": "https://github.com/Yonle/node-ytsr.git"
   },
+
   "description": "Anonymous Youtube Proxy",
   "repository": {
     "type": "git",
