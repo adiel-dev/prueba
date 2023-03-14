@@ -74,7 +74,7 @@ module.exports = (app) => {
           })
           .pipe(res);
       }
-*/
+
       let h = headers.Range
         ? headers.Range.split(",")[0].split("-")
         : ["bytes=0"];
