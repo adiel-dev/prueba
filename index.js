@@ -7,14 +7,14 @@ const miniget = require("miniget");
 const express = require("express");
 const ejs = require("ejs");
 const app = express();
-const express = require("express");
+
 const compression = require("compression");
 const YouTubeJS = require("youtubei.js");
 
 const proxyHandler = require("./etc/proxy");
 const util = require("./etc/util");
 
-let app = express();
+
 
 //        CONFIGURATION        //
 
