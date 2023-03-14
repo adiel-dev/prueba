@@ -3,10 +3,10 @@ const compression = require("compression");
 const YouTubeJS = require("youtubei.js");
 
 let user_agent = process.env.USER_AGENT || "googlebot";
-let client = null;
+
 
 let app = express();
-
+let client:
 
 app.use(compression());
 app.use(express.static(__dirname + "/local/public"));
