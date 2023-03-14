@@ -136,7 +136,7 @@ app.get(["/yt3/*", "/ytc/*"], (req, res) => {
           });
 
           res.end(body);
-        });
+
 
         return;
       }
