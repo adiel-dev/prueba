@@ -59,7 +59,7 @@ module.exports = (app) => {
        
 
         return;
-      }
+      
 
       if (streamingData.isDashMPD) {
         return m3u8stream(streamingData.url, {
