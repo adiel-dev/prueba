@@ -56,7 +56,7 @@ app.get("/c/:id", async (req, res) => {
 
 app.get("/cm/:id", async (req, res) => {
 })
-});
+
 proxyHandler(app);
 
    // If user is seeking a video
