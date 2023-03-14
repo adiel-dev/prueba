@@ -97,7 +97,7 @@ proxyHandler(app);
       });
     (error)
     res.status(500).send(error.toString());
-  }
+  
 });
 
 // Proxy to i.ytimg.com, Where Video Thumbnail is stored here.
