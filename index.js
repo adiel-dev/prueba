@@ -95,7 +95,7 @@ proxyHandler(app);
       .on("error", (err) => {
         res.status(500).send(err.toString());
       });
-  } catch (error) {
+   catch (error) {
     res.status(500).send(error.toString());
   }
 });
