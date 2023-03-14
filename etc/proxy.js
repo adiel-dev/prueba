@@ -56,7 +56,7 @@ module.exports = (app) => {
           });
 
           res.end(body);
-        });
+       
 
         return;
       }
