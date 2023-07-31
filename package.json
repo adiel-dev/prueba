@@ -1,0 +1,35 @@
+{
+  "name": "ytmous",
+  "version": "4.0.0",
+  "main": "index.js",
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "m3u8stream": "^0.8.6",
+    "undici": "^5.22.1",
+    "youtubei.js": "latest"
+  },
+  "description": "Anonymous Youtube Proxy",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ytmous/ytmous.git"
+  },
+  "author": "Yonle <yonle@duck.com>",
+  "private": false,
+  "bugs": {
+    "url": "https://github.com/ytmous/ytmous/issues"
+  },
+  "homepage": "https://github.com/ytmous/ytmous#readme",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "keywords": [
+    "youtube"
+  ]
+}
